@@ -11,24 +11,30 @@ public class 여행경로 {
 
     // 출발은 무조건 인천
 
+
     public static void main(String[] args) {
 
-        String tickets[][] = new String[][] {{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
-        String tickets1[][] = new String[][] {{"ICN", "DD"}, {"DD", "ICN"}, {"ICN", "BB"}};
+        String tickets[][] = new String[][]{{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
+        String tickets1[][] = new String[][]{{"ICN", "DD"}, {"DD", "ICN"}, {"ICN", "BB"}};
 
         여행경로 main = new 여행경로();
         main.solution(tickets1);
 
 
-
     }
+
+    private int totalTicket;
+    private HashMap<String, PriorityQueue<String>> hashMap;
+    private List<String> path;
+
 
     public String[] solution(String[][] tickets) {
         // 1. haspmap , 2. 우선순위를 넣은 stack의 형태로 관리
         //hash map 을 통해 출발을 from, to로 관리
         //hash map에 저장될 때 dfs로 돌아야 하는데, 우선순위가 있다. value를 우선 순위 queue로 넣는건?
 
-        HashMap<String, PriorityQueue<String>> hashMap = new HashMap<>();
+        hashMap = new HashMap<>();
+        totalTicket = tickets.length;
 
         // 틀린 이유가 반례를 찾지 못해서인데.. 무조건 알파벳순으로 가지 않는다!!
         // dfs보다 bfs의 접근이 더 좋을 거 같네..
@@ -50,38 +56,64 @@ public class 여행경로 {
         }
 
         for (Map.Entry<String, PriorityQueue<String>> stringPriorityQueueEntry : hashMap.entrySet()) {
-            System.out.println(stringPriorityQueueEntry);
+
         }
-        List<String> path = new ArrayList<>();
+        path = new ArrayList<>();
+        path.add("ICN");
 
-        Queue<String> queue = new LinkedList<>();
+        dfs("ICN");
 
-        queue.offer("ICN");
+        for (String s : path) {
+            System.out.println(s);
+        }
 
+
+        return path.toArray(new String[0]);
+    }
+
+    private void dfs(String current) {
+
+        if (path.size() == totalTicket + 1) {
+            // 기저 조건
+
+            return;
+        }
+
+        if (!hashMap.containsKey(current) || hashMap.get(current).isEmpty()){
+            return;
+           // note backTracking을 위한, 돌면서 위에 티켓을 다 사용하지 않았는데도 비어버리게 된다면 다시 백트레킹으로 되돌아가버리기
+        }
+
+
+        PriorityQueue<String> queue = hashMap.get(current);
+        List<String> tempList = new ArrayList<>(queue); // 복사본 저장 (백트래킹 대비)
 
         while (!queue.isEmpty()) {
+            String next = queue.poll();
+            path.add(next);
+            dfs(next);
 
 
-            String now = queue.poll();
-            path.add(now);
+            if (path.size() == totalTicket + 1) {
+                // note dfs에서 1.기저에서 return이 됐을 경우 백트레킹을 더 실행하지 않게 하는 코드
 
-            PriorityQueue<String> queue1 = hashMap.get(now);
-            if (queue1 != null && queue1.isEmpty()) {
-                for (String s : queue1) {
-                    queue.offer(s);
-                }
-            }}
-
-
-            for (String s : path) {
-                System.out.println(s);
+                return;
             }
+            path.remove(path.size() - 1);
+            queue.clear();
+            queue.addAll(tempList);
+            // 지우고 다시
 
-
-            return path.toArray(new String[0]);
-            // note 사이즈를 넘기는데 제네릭 활용해서 STring으로 넘긴 후 0(최소사이즈)로 넘기면 jvm에서 알아서 자동생성
         }
 
 
     }
+
+
+
+
+
+
+
+}
 
