@@ -82,25 +82,27 @@ public class 지게차와크레인1 {
 
         // 접근 가능성 갱신
         private void updateAccessible(char[][] box, int[][] isAccessible, int n, int m) {
-            // 모두 초기화 후 재계산
-            for (int i = 0; i < n; i++) {
+            // 신경쓸 것
+            // 1. 현재가 0인것만으로는 다 확인 x
+            // 2. 벽이여야만 하나씩 지울 수 있다.
+            // 3. 중간에 값이 지우진 후라면, 벽으로 판정하지 않아야 한다.
+            for (int i = 0; i <n; i++) {
                 for (int j = 0; j < m; j++) {
-                    isAccessible[i][j] = 0; // 기본: 접근 불가
-                    if (box[i][j] == '0') continue; // 빈 공간은 체크 제외
-                    // 외곽이거나 빈 공간 옆이면 접근 가능
-                    if (i == 0 || i == n - 1 || j == 0 || j == m - 1) {
-                        isAccessible[i][j] = 1;
-                    } else {
-                        for (int[] move : movement) {
-                            int ni = i + move[0];
-                            int nj = j + move[1];
-                            if (ni >= 0 && ni < n && nj >= 0 && nj < m && box[ni][nj] == '0') {
-                                isAccessible[i][j] = 1;
-                                break;
+
+                    if (box[i][j] == '0')    {
+
+                        for (int[] ints : movement) {
+                            int x = i + ints[0];
+                            int y = j + ints[1];
+
+                            if (0 <= x && x < n && 0 <= y && y < m && isAccessible[i][j] == 1) {
+                                isAccessible[x][y] = 1;
                             }
                         }
                     }
+
                 }
+
             }
         }
 

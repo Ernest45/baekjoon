@@ -58,15 +58,15 @@ public class 지게차와크레인 {
             if (requests[i].length() == 1) {
 
 
-                wallCheck(box, isWall, now,n,m);
-                removeAccessible(box, isAccessible, target, n, m);
+                wallCheck(box, isWall, now);
+//                removeAccessible(box, isAccessible, target, n, m);
 
             } else{
-                removeAll(box, isAccessible, target, n, m);
+//                removeAll(box, isAccessible, target, n, m);
 
             }
 
-            updateAccessible(box, isAccessible, n, m);
+//            updateAccessible(box, isAccessible, n, m);
 
 
         }
