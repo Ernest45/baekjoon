@@ -56,6 +56,7 @@ public class 다리를지나는트럭정답 {
 
 
             if(index < truck_weights.length){
+
                 int now = truck_weights[index];
 
                 if (nowWeight + now <= weight) {
