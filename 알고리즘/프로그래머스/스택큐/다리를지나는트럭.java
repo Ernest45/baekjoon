@@ -15,11 +15,13 @@ public class 다리를지나는트럭 {
         int bridge_length1 = 100;
         int truck_weights[] = new int[]{7, 4, 5, 6};
         int truck_weights1[] = new int[]{10};
+        int truck_weights2[] = new int[]{10,10,10,10,10,10,10,10,10,10};
         int weight = 10;
         int weight1 = 100;
         다리를지나는트럭 main = new 다리를지나는트럭();
 //        System.out.println( main.solution(bridge_length, weight, truck_weights));;
-        System.out.println( main.solution(bridge_length1, weight1, truck_weights1));;
+//        System.out.println( main.solution(bridge_length1, weight1, truck_weights1));
+        System.out.println( main.solution(bridge_length1, weight1, truck_weights2));
     }
 
     // 1. 순서대로 지나가야 한다.
@@ -28,6 +30,8 @@ public class 다리를지나는트럭 {
     // 시간이 안 지나도 한번에 담길 수가 있다.
     // 초 당 하나씩 빠져 나가는데, 지금 현재 몇 명을 이용하고 있는 지도 알아야 한다.
     // 1차선 다리
+
+    // 틀린 이유 반복을 돌 때 들어오는 수로만 보고 안에서 내부의 다리가 지나가게끔 설계해야지
 
     public int solution(int bridge_length, int weight, int[] truck_weights) {
 
@@ -47,8 +51,9 @@ public class 다리를지나는트럭 {
             // queue에는 다 넣고, 마지막은 빠져 나가는 조건이다.
 
             count++;
-
             answer++;
+
+
 
             int in = queue.peek();
 
@@ -57,6 +62,7 @@ public class 다리를지나는트럭 {
 
                 queue1.offer(queue.poll());
                 nowWeight += in;
+
 
             }
             if (count == bridge_length ) {
