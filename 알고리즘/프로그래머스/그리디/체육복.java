@@ -71,8 +71,6 @@ public class 체육복 {
 
         }
 
-
-
         return answer;
     }
 
