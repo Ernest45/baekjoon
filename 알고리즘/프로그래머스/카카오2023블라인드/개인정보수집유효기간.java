@@ -32,20 +32,16 @@ public class 개인정보수집유효기간 {
         // String을 int로 변환
 
 
-        for (int i = 0; i < terms.length; i++) {
-
-            String splitTerms[] = terms[i].split(" ");
-            int month = StringMonthToInt(splitTerms[1]);
-            // 6개월이라면 0000 06 00 으로 변환
-
-            map.put(splitTerms[0], month);
-
+        // 약관을 HashMap에 저장 (약관 이름 -> 개월 수)
+        for (String term : terms) {
+            String[] splitTerms = term.split(" ");
+            map.put(splitTerms[0], Integer.parseInt(splitTerms[1]));
         }
 
+        // 각 개인정보 처리
         for (int i = 0; i < privacies.length; i++) {
-            String splitPrivacy[] = privacies[i].split(" ");
-
-            int day = Integer.parseInt(splitPrivacy[0].replace(".", ""));
+            String[] splitPrivacy = privacies[i].split(" ");
+            int day = Integer.parseInt(splitPrivacy[0].replace(".", "")); // 수집일
             int months = map.get(splitPrivacy[1]); // 유효기간(개월)
 
             // 만료일 계산
@@ -56,21 +52,15 @@ public class 개인정보수집유효기간 {
                 answer.add(i + 1); // 인덱스는 1부터 시작 (문제 조건 반영)
             }
         }
-        int[] arr = answer.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
-
-
-
-
-        return arr;
-    }}
 
         // ArrayList를 int[]로 변환
-
+        return answer.stream().mapToInt(Integer::intValue).toArray();
+    }
 
     // 개월 수를 날짜 계산에 반영하는 메서드
     private int dayAddPlus(int date, int months) {
+        //note 나누고 다시 더해주는 걸 생각 못함
+
         // date는 yyyymmdd 형식 (예: 20210502)
         int year = date / 10000; // 연도 (2021)
         int month = (date / 100) % 100; // 월 (05)
@@ -92,34 +82,5 @@ public class 개인정보수집유효기간 {
         return result;
     }
 
-
-
-    private int StringMonthToInt(String month) {
-        // 들어온 개월 수를 숫자로 변환하는 과정
-        // 1~100개월사이로 들어옴
-        // 변환 시 12개월 이상이면 년수로 올려서 변환
-        int yyyymm = 00000000;
-        String y = "000000";
-        int m = 6;
-        int q = Integer.parseInt(y) + m;
-        System.out.println(q);
-
-
-
-        int monthToInt = Integer.parseInt(month);
-//        Duration.
-
-//        if (monthToInt > ) {
-//
-//        }
-        return 1;
-
-    }
-
-    private int dayAddPlus(int right, int left) {
-        int result = 0;
-
-        return result;
-
-    }
+    // 사용자의 StringMonthToInt 메서드는 dayAddPlus에서 처리하므로 생략
 }
