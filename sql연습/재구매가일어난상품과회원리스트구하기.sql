@@ -1,0 +1,5 @@
+SELECT USER_ID, PRODUCT_ID
+FROM ONLINE_SALE
+GROUP BY USER_ID, PRODUCT_ID -- 알고 싶은 건 user와 product를 하나의 그룹으로 해서
+HAVING COUNT(*) >= 2 -- 그 그룹의 수가 2개가 넘으면 반환
+ORDER BY USER_ID ASC, PRODUCT_ID DESC
