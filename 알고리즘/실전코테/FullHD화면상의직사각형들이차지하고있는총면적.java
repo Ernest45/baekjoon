@@ -3,7 +3,7 @@ package 알고리즘.실전코테;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FullHD화면상의직사각형들이차지하고있는총면적_임한준 {
+public class FullHD화면상의직사각형들이차지하고있는총면적 {
 
     /**
      * v1
